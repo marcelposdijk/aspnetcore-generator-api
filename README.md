@@ -1,5 +1,16 @@
 Access this repository: http://bit.ly/aspnetcoredocker
 
+## Marcel's aantekeningen
+
+Upgrade source code naar aspnet core 2.1
+
+daarna: dotnet publish
+
+starten via docker:
+docker run --rm -it -v D:\Sources\cursus\api\bin\Debug\netcoreapp2.1\publish:/publish -p 8080:80 microsoft/dotnet:2.1-aspnetcore-runtime
+
+
+
 ## Branch to course mapping
 
 This repository contains source code for two courses:
