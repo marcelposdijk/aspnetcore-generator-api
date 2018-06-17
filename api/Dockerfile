@@ -1,5 +1,9 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime
-WORKDIR /app
-COPY bin/Debug/netcoreapp2.1/publish .
+FROM microsoft/dotnet:2.1-sdk
+WORKDIR /api
+COPY . .
 
-ENTRYPOINT ["dotnet" , "api.dll" ]
+RUN dotnet restore
+RUN dotnet publish -o /publish
+
+WORKDIR /publish
+ENTRYPOINT [ "dotnet" , "/publish/api.dll"]
