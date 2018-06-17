@@ -39,5 +39,30 @@ docker build -t marpos/generator .
 
 om deze te runnen:
 
-docker run --rm -it -p 8080:80 marpos/generator:latest 
+docker run --rm -it -p 8080:80 marpos/generator
+
+
+vervolgens de multistage build functionaliteit gemaakt
+je kunt en FROM commando een naam geven en daar dan later van kopieren:
+
+Bijvoorbeeld:
+COPY --from=build-env /publish /app
+
+En nu docker-compose:
+
+maak een docker-compose.yml file
+
+
+starten in de achtergrond met:
+
+docker-compose up -d
+
+daarna connecten met de logs:
+
+docker-compose logs -f 
+
+via Ctrl+C weer afbreken (container blijft draaien)
+
+
+Verander je de docker-compose.yml file dan regelt docker-compose up of er een nieww container wordt gemaakt
 

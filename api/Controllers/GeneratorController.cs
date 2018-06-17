@@ -5,13 +5,34 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Faker;
 using Faker.Extensions;
+using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 
 namespace api.Controllers
 {
-    // Just use action name as route
+    // Just use action name as route!
     [Route("[action]")]
-    public class GenerateController : Controller
+    public class GenerateController : Controller   
     {
+        [HttpPost]
+        public async Task EmailRandomNames(Range range, string email = "test@fake.com")
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Generator", "gnerator@marposnl"));
+            message.To.Add(new MailboxAddress("", email));
+            message.Subject = "Here are your random names";
+            message.Body = new TextPart("plain") 
+            {
+                Text = string.Join(Environment.NewLine, range.Of(Name.FullName))
+            };
+            using( var mailClient = new SmtpClient())
+            {
+                await mailClient.ConnectAsync("mail", 1025, SecureSocketOptions.None);
+                await mailClient.SendAsync(message);
+                await mailClient.DisconnectAsync(true);
+            }
+        }
         [HttpGet]
         public IEnumerable<string> Names(Range range)
             => range.Of(Name.FullName);

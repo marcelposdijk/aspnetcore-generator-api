@@ -1,0 +1,14 @@
+version: '3.6'
+
+services:
+  generator:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    image: marpos/generator
+    ports: 
+      - "8080:80"
+  mail:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"

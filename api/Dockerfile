@@ -1,8 +1,10 @@
 FROM microsoft/dotnet:2.1-sdk as build-env
 WORKDIR /api
-COPY . .
 
+COPY api.csproj .
 RUN dotnet restore
+
+COPY . .
 RUN dotnet publish -o /publish
 
 # Build runtime container
