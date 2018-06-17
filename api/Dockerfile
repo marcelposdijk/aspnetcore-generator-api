@@ -9,4 +9,4 @@ RUN dotnet publish -o /publish
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
 COPY --from=build-env /publish /app
-ENTRYPOINT [ "dotnet" , "/publish/api.dll"]
+ENTRYPOINT [ "dotnet" , "api.dll"]
